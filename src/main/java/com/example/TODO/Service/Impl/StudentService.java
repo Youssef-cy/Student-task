@@ -1,8 +1,9 @@
-package com.example.TODO.Service;
+package com.example.TODO.Service.Impl;
 
 import com.example.TODO.DTO.StudentsREQ;
 import com.example.TODO.Entity.StudentEntity;
 import com.example.TODO.Repo.StudentRepo;
+import com.example.TODO.Service.StudentIMPL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class StudentService implements StudentIMPL {
 
     @Override
     public List<StudentEntity> getAllStudent() {
-        log.info("Receive Request for getAllStudent on Service ");
+        log.debug("Receive Request for getAllStudent on Service ");
         List<StudentEntity> students = studentRepo.findAll();
         if (students.isEmpty()) {
             log.warn("Students not found");

@@ -2,7 +2,7 @@ package com.example.TODO.Controller;
 
 import com.example.TODO.DTO.StudentsREQ;
 import com.example.TODO.Entity.StudentEntity;
-import com.example.TODO.Service.StudentService;
+import com.example.TODO.Service.Impl.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class StudentController {
 
     @GetMapping()
     public List<StudentEntity> getAllStudents() {
-        log.info("Receive Request for return all Students on Controller ");
+        log.debug("Receive Request for return all Students on Controller ");
         List<StudentEntity> students = studentService.getAllStudent();
         log.info("Return all Students on Controller ");
         log.info(students.toString());
