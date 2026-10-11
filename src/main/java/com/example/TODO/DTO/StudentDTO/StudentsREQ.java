@@ -1,4 +1,4 @@
-package com.example.TODO.DTO;
+package com.example.TODO.DTO.StudentDTO;
 
 
 import jakarta.validation.constraints.Email;
@@ -24,5 +24,7 @@ public class StudentsREQ {
     @NotBlank
     private String password;
 
-
+    @NotBlank
+    private String grade;
+    
 }

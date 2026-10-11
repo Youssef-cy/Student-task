@@ -1,22 +1,27 @@
 package com.example.TODO.Service.Impl;
 
-import com.example.TODO.DTO.StudentsREQ;
+import com.example.TODO.DTO.StudentDTO.StudentsREQ;
 import com.example.TODO.Entity.StudentEntity;
+import com.example.TODO.Entity.TeamEntity;
 import com.example.TODO.Repo.StudentRepo;
-import com.example.TODO.Service.StudentIMPL;
+import com.example.TODO.Repo.TeamRepo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
-public class StudentService implements StudentIMPL {
-    @Autowired
-    StudentRepo studentRepo;
+@RequiredArgsConstructor
+public class StudentServiceImpl implements com.example.TODO.Service.StudentService {
+
+    private final StudentRepo studentRepo;
+    private final TeamRepo teamRepo;
 
     @Override
     public List<StudentEntity> getAllStudent() {
@@ -66,5 +71,32 @@ public class StudentService implements StudentIMPL {
         return HttpStatus.NOT_FOUND;
 
     }
+
+
+    @Override
+    public ResponseEntity<String> assignStudentToTeam(Long studentId, Long teamId) {
+
+        Optional<StudentEntity> studentOptional = studentRepo.findById(studentId);
+        Optional<TeamEntity> teamOptional = teamRepo.findById(teamId);
+
+        if (studentOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Student not found");
+        }
+
+        if (teamOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Team not found");
+        }
+
+        StudentEntity student = studentOptional.get();
+        TeamEntity team = teamOptional.get();
+
+        student.setTeam(team);
+        studentRepo.save(student);
+
+        return ResponseEntity.ok("Student assigned to team successfully");
+    }
+
 
 }

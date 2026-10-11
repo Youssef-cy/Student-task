@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Table(name = "Team")
 @Data
@@ -18,8 +16,4 @@ public class TeamEntity {
     private Long id;
 
     private String name;
-
-    @OneToMany
-    @JoinColumn(name = "student_id")
-    private List<StudentEntity> student;
 }

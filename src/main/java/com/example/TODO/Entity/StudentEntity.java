@@ -27,4 +27,8 @@ public class StudentEntity {
     @Enumerated(EnumType.STRING)
     private GradeEnum grade;
 
+    @ManyToOne
+    @JoinColumn(name = "teamId")
+    private TeamEntity team;
+
 }
